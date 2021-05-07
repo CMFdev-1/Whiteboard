@@ -1,0 +1,74 @@
+<img src="https://i.postimg.cc/JhQ6mtKX/cmfdevwhiteboard.png" width="100%">
+<!DOCTYPE html>
+<head>
+
+<style>
+.demo_content {
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+
+</style>
+</head>
+<body class="demo_page">
+<div class="demo_content">
+  
+  <div class="info">
+  		<style>
+		body {
+			margin: 0; 
+      background-color: #0072C5;
+		}
+        		#myCanvas {
+			background-color: #2B2B2B;
+
+		}
+		</style>
+
+  		<div id="board" style="width: 100%;">
+        <canvas id="myCanvas" width="650px" height="650px">
+        </canvas>
+        </p>
+        </div>
+        
+        <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
+		<script type="text/javascript">
+            window.onload = function() {
+                var myCanvas = document.getElementById("myCanvas");
+                var curColor = $('#selectColor option:selected').val();
+                if(myCanvas){
+                        var isDown  = false;
+                        var ctx = myCanvas.getContext("2d");
+                        var canvasX, canvasY;
+                        ctx.lineWidth = 5;
+                         
+                        $(myCanvas)
+                        .mousedown(function(e){
+                                isDown = true;
+                                ctx.beginPath();
+                                canvasX = e.pageX - myCanvas.offsetLeft;
+                                canvasY = e.pageY - myCanvas.offsetTop;
+                                ctx.moveTo(canvasX, canvasY);
+                        })
+                        .mousemove(function(e){
+                                if(isDown != false) {
+                                    canvasX = e.pageX - myCanvas.offsetLeft;
+                                    canvasY = e.pageY - myCanvas.offsetTop;
+                                    ctx.lineTo(canvasX, canvasY);
+                                    ctx.strokeStyle = curColor;
+                                    ctx.stroke();
+                                }
+                        })
+                        .mouseup(function(e){
+                                isDown = false;
+                                ctx.closePath();
+                        });
+                }
+                 
+                $('#selectColor').change(function () {
+                        curColor = $('#selectColor option:selected').val();
+                });
+                 
+            };
+        </script>
